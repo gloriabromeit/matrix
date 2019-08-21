@@ -1,0 +1,31 @@
+drop table movie_actors;
+drop table movie_revenue;
+
+CREATE TABLE movie_actors (
+	id serial primary key,
+	movie_title TEXT,
+	actor_1_name TEXT,
+	director_name TEXT
+);
+
+
+CREATE TABLE movie_revenue (
+	id serial primary key,
+	revenue BIGINT,
+	original_title TEXT,
+	title TEXT
+);
+
+with actor_and_revenue as 
+(select
+ movie_actors.movie_title,
+ movie_actors.actor_1_name,
+ movie_actors.director_name,
+ movie_revenue.revenue
+ from movie_actors
+inner join movie_revenue
+ on movie_actors.movie_title = movie_revenue.title
+order by revenue desc)
+ 
+ select * from actor_and_revenue;
+
